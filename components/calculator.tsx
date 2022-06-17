@@ -21,15 +21,15 @@ function Calculator(props: Props) {
           ))}
         </ul>
       </div>
-      <div className="flex flex-auto shadow-sm shadow-slate-300">
+      <div className="flex shadow-sm shadow-slate-300">
         <button
-          className=" mx-auto w-full bg-zinc-300 p-1 hover:bg-zinc-400  active:bg-zinc-300 active:shadow-inner"
+          className=" w-12 bg-zinc-300 hover:bg-zinc-400 active:bg-zinc-300 active:shadow-inner"
           onClick={props.clearLog}
         >
           C
         </button>
         <input
-          className=" h-9 px-2 text-right shadow-inner shadow-slate-100"
+          className=" h-9 flex-grow px-2 text-right shadow-inner shadow-slate-100"
           value={calcInput}
           onChange={(e) => setCalcInput(e.target.value)}
         />

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn {
+      @apply mx-auto w-full rounded-lg border p-4 font-semibold shadow active:shadow-none;
+    }
+  }
