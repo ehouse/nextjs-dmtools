@@ -1,14 +1,14 @@
 interface Props {
   face: number;
   mod: number;
-  appendRoll: (arg0: RollGroup) => void;
+  appendRoll: (arg0: Roll[]) => void;
 }
 
 function Die(props: Props) {
   return (
     <button
       onClick={() => {
-        let log: RollGroup = [];
+        let log: Roll[] = [];
 
         for (let index = 0; index < props.mod; index++) {
           const roll = Math.floor(Math.random() * props.face + 1);

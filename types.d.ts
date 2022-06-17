@@ -1,14 +1,8 @@
+type Sides = number;
+type Total = number;
 /**
- * Single roll containing a die face and a result 
+ * Single roll containing a die face and a result
+ * Roll[0] is the total number of sides
+ * Roll[1] is the amount rolled
  */
-type Roll = [number, number];
-
-/**
- * A collection of Rolls that will result in a total
- */
-type RollGroup = Roll[];
-
-/**
- * A log of RollGroups to be used as a history
- */
-type RollLog = RollGroup[];
+type Roll = [Sides, Total];

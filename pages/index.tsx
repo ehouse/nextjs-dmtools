@@ -6,7 +6,7 @@ import Die from "../components/dice";
 import Calculator from "../components/calculator";
 
 const Home: NextPage = () => {
-  const [rollLog, setRollLog] = useState<RollLog>([]);
+  const [rollLog, setRollLog] = useState<Roll[][]>([]);
   const [mod, setMod] = useState(1);
 
   // Deletes all rolles from the log
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   };
 
   // Apend a group of rolls plus modifiers to the log
-  const appendRoll = (rollGroup: RollGroup) => {
+  const appendRoll = (rollGroup: Roll[]) => {
     setRollLog((oldLog) => [...oldLog, rollGroup]);
   };
 
