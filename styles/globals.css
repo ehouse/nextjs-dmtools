@@ -7,6 +7,10 @@
       @apply mx-auto w-full rounded-lg border p-4 font-semibold shadow active:shadow-none;
     }
 
+    .die {
+      @apply flex w-20 justify-around items-center gap-2 rounded-xl bg-blue-400 p-3 shadow-sm active:shadow-none shadow-gray-300 transition-all ease-linear
+    }
+
     .sidebar-icon {
       @apply relative flex items-center justify-center mx-auto rounded-full bg-blue-300 p-2 shadow-md shadow-sky-800 transition-all ease-linear hover:cursor-pointer hover:shadow-sky-700/50 active:bg-blue-300/80 active:shadow-none
     }

@@ -18,9 +18,9 @@ function Die(props: Props) {
   };
 
   return (
-    <button onClick={roll} className=" relative rounded-xl bg-blue-400 p-3">
-      <FaDiceD6 size="42" color="rgb(30 58 138)" />
-      <span className=" absolute top-4 right-5 w-[27px] text-center text-2xl font-semibold text-white drop-shadow-md ">
+    <button onClick={roll} className="die">
+      <FaDiceD6 size="24" color="rgb(30 58 138)" />
+      <span className=" text-center text-2xl font-semibold text-blue-900 ">
         {props.face}
       </span>
     </button>
