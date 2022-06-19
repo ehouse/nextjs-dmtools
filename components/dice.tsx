@@ -1,3 +1,5 @@
+import { FaDiceD6 } from "react-icons/fa";
+
 interface Props {
   face: number;
   mod: number;
@@ -5,20 +7,22 @@ interface Props {
 }
 
 function Die(props: Props) {
-  return (
-    <button
-      onClick={() => {
-        let log: Roll[] = [];
+  const roll = () => {
+    let log: Roll[] = [];
 
-        for (let index = 0; index < props.mod; index++) {
-          const roll = Math.floor(Math.random() * props.face + 1);
-          log.push([props.face, roll]);
-        }
-        props.appendRoll(log);
-      }}
-      className="btn border-slate-600 bg-slate-500 text-white shadow shadow-slate-600 hover:bg-slate-600 active:bg-slate-700 "
-    >
-      D{props.face}
+    for (let index = 0; index < props.mod; index++) {
+      const roll = Math.floor(Math.random() * props.face + 1);
+      log.push([props.face, roll]);
+    }
+    props.appendRoll(log);
+  };
+
+  return (
+    <button onClick={roll} className=" relative rounded-xl bg-blue-400 p-3">
+      <FaDiceD6 size="42" color="rgb(30 58 138)" />
+      <span className=" absolute top-4 right-5 w-[27px] text-center text-2xl font-semibold text-white drop-shadow-md ">
+        {props.face}
+      </span>
     </button>
   );
 }

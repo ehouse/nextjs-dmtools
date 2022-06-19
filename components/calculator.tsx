@@ -1,4 +1,3 @@
-import { group } from "console";
 import { useState } from "react";
 
 interface Props {

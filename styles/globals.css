@@ -6,4 +6,12 @@
     .btn {
       @apply mx-auto w-full rounded-lg border p-4 font-semibold shadow active:shadow-none;
     }
+
+    .sidebar-icon {
+      @apply relative flex items-center justify-center mx-auto rounded-full bg-blue-300 p-2 shadow-md shadow-sky-800 transition-all ease-linear hover:cursor-pointer hover:shadow-sky-700/50 active:bg-blue-300/80 active:shadow-none
+    }
+
+    .sidebar-tip {
+      @apply absolute w-auto p-2 m-2 min-w-max left-[3.25rem] scale-0 rounded-md shadow-md text-white bg-gray-900 text-xs font-semibold transition-all origin-left
+    }
   }
