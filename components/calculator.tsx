@@ -1,55 +1,170 @@
 import { useState } from "react";
+import { FaSync, FaBackspace } from "react-icons/fa";
 
 interface Props {
-  rollLog: Roll[][];
-  clearLog: () => void;
-}
-
-function Line(props: { group: Roll[] }) {
-  return (
-    <div className="flex justify-end gap-2">
-      {props.group.map((roll, index) => {
-        return (
-          <span
-            className={` flex h-8 w-8 items-center justify-center rounded-full bg-slate-300 font-semibold 
-            ${roll[0] === roll[1] && "bg-green-900 text-green-400"}
-            ${roll[1] === 1 && "bg-red-600 text-white"}`}
-            key={index}
-          >
-            {roll[1]}
-          </span>
-        );
-      })}
-    </div>
-  );
+  setExpression: (arg0: Expression) => void;
+  clearExpression: () => void;
+  expression: Expression;
 }
 
 function Calculator(props: Props) {
-  const [calcInput, setCalcInput] = useState("");
+  const clear = () => {
+    props.clearExpression();
+  };
+
+  const dispatchNumber = (digit: number) => {
+    if (props.expression === null) {
+      // If completely unset, set to a single number
+      props.setExpression({ tag: "number", n: digit });
+    } else if (props.expression.tag === "number") {
+      // Add a digit to a single number expression
+      let newExpression: NumberExpression = {
+        tag: "number",
+        n: props.expression.n * 10 + digit,
+      };
+      props.setExpression(newExpression);
+    } else if (props.expression.tag === "math") {
+      // If a math expression, append to the right leaf node
+      if (props.expression.right === null) {
+        // Check if the leaf node is null, set to a number
+        let newNumber: NumberExpression = { tag: "number", n: digit };
+        let newExpression = { ...props.expression, right: newNumber };
+        props.setExpression(newExpression);
+      } else if (props.expression.right.tag === "number") {
+        let newNumber: NumberExpression = {
+          tag: "number",
+          n: props.expression.right.n * 10 + digit,
+        };
+        let newExpression = { ...props.expression, right: newNumber };
+        props.setExpression(newExpression);
+      }
+    }
+  };
+
+  const dispatchOperation = (operation: Operation) => {
+    if (
+      props.expression?.tag === "number" ||
+      (props.expression?.tag === "math" && props.expression.right !== null)
+    ) {
+      let newExpression: MathExpression = {
+        tag: "math",
+        op: operation,
+        left: props.expression,
+        right: null,
+      };
+      props.setExpression(newExpression);
+    }
+  };
 
   return (
-    <div className="flex w-72 flex-col rounded-t-md bg-slate-100">
-      <div className="h-72 flex-grow items-end overflow-auto rounded-t-md p-4 shadow-inner shadow-gray-300">
-        <div className=" flex flex-col-reverse gap-4">
-          {props.rollLog.map((rollGroup, index) => (
-            <div key={index}>
-              <Line group={rollGroup} />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="flex shadow-sm shadow-slate-300">
+    <div className="flex gap-8">
+      <div className="grid grid-cols-1">
         <button
-          className=" w-12 bg-zinc-300 hover:bg-zinc-400 active:bg-zinc-300 active:shadow-inner"
-          onClick={props.clearLog}
+          onClick={() => dispatchOperation("+")}
+          className="calculator-button rounded-t-md"
         >
-          C
+          +
         </button>
-        <input
-          className=" h-9 flex-grow px-2 text-right shadow-inner shadow-slate-100"
-          value={calcInput}
-          onChange={(e) => setCalcInput(e.target.value)}
-        />
+        <button
+          className="calculator-button"
+          onClick={() => dispatchOperation("-")}
+        >
+          -
+        </button>
+        <button
+          className="calculator-button"
+          onClick={() => dispatchOperation("/")}
+        >
+          /
+        </button>
+        <button
+          className="calculator-button rounded-b-md"
+          onClick={() => dispatchOperation("*")}
+        >
+          *
+        </button>
+      </div>
+      <div className="grid grid-cols-3 ">
+        <button
+          value={7}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button rounded-tl-md"
+        >
+          7
+        </button>
+        <button
+          value={8}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          8
+        </button>
+        <button
+          value={9}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button rounded-tr-md"
+        >
+          9
+        </button>
+        <button
+          value={4}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          4
+        </button>
+        <button
+          value={5}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          5
+        </button>
+        <button
+          value={6}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          6
+        </button>
+        <button
+          value={1}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          1
+        </button>
+        <button
+          value={2}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          2
+        </button>
+        <button
+          value={3}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          3
+        </button>
+        <button
+          value={"-"}
+          className="calculator-button rounded-bl-md"
+          onClick={clear}
+        >
+          <FaSync />
+        </button>
+        <button
+          value={0}
+          onClick={(e) => dispatchNumber(Number(e.currentTarget.value))}
+          className="calculator-button"
+        >
+          0
+        </button>
+        <button className="calculator-button rounded-br-md">
+          <FaBackspace />
+        </button>
       </div>
     </div>
   );
