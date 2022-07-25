@@ -44,10 +44,10 @@ function Memory(props: {
           </button>
         )}
         <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[1])}
+          {expressionToString(cell[1] ?? null)}
         </span>
       </div>
-      <div className="relative">
+      <div className="group relative">
         <button
           onClick={() => dispatchMemory(2)}
           className="calculator-button-cell"
@@ -62,8 +62,11 @@ function Memory(props: {
             <FaTrash />
           </button>
         )}
+        <span className="cell-tip group-hover:scale-100">
+          {expressionToString(cell[2] ?? null)}
+        </span>
       </div>
-      <div className="relative">
+      <div className="group relative">
         <button
           onClick={() => dispatchMemory(3)}
           className="calculator-button-cell"
@@ -78,8 +81,11 @@ function Memory(props: {
             <FaTrash />
           </button>
         )}
+        <span className="cell-tip group-hover:scale-100">
+          {expressionToString(cell[3] ?? null)}
+        </span>
       </div>
-      <div className="relative">
+      <div className="group relative">
         <button
           onClick={() => dispatchMemory(4)}
           className="calculator-button-cell"
@@ -94,6 +100,9 @@ function Memory(props: {
             <FaTrash />
           </button>
         )}
+        <span className="cell-tip group-hover:scale-100">
+          {expressionToString(cell[4] ?? null)}
+        </span>
       </div>
     </div>
   );
