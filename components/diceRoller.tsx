@@ -25,7 +25,7 @@ function DiceRoller() {
                 clearExpression={clearExpression}
                 expression={expression}
               />
-              <Memory />
+              <Memory expression={expression} setExpression={setExpression} />
             </div>
             <Results expression={expression} />
           </div>

@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 @layer components {
-    .btn {
-      @apply mx-auto w-full rounded-lg border py-4 font-semibold shadow active:shadow-none;
+    /* Affect for darkening the text color when hovering the trashcan icon*/
+    .trashcan-hover {
+      @apply text-slate-100 hover:text-slate-400
     }
 
+    /* Design of the individual dice */
     .die {
       @apply flex justify-around items-center 
       rounded-full 
@@ -15,12 +17,23 @@
       transition-all ease-linear
     }
 
+    /* Design of the face of the individual dice */
+    .die-face {
+      @apply absolute text-center text-5xl font-semibold text-slate-50 group-active:text-slate-200 shadow-white drop-shadow-md
+    }
+
+    /* The icon that represents a specific component tree */
     .sidebar-icon {
       @apply relative flex items-center justify-center mx-auto rounded-full bg-blue-300 p-2 shadow-md shadow-sky-800 transition-all duration-100 ease-linear hover:cursor-pointer active:bg-blue-300/80 active:shadow-none
     }
 
+    /* Pop-up tip naming the component tree */
     .sidebar-tip {
       @apply absolute w-auto p-2 m-2 min-w-max left-[3.25rem] scale-0 rounded-md shadow-md text-white bg-gray-900 text-xs font-semibold transition-all origin-left
+    }
+
+    .cell-tip {
+      @apply absolute w-auto p-2 m-2 min-w-max left-[6rem] top-[1.5rem] scale-0 rounded-md shadow-md text-white bg-gray-900 text-xs font-semibold transition-all origin-left
     }
 
     .calculator-button{
@@ -29,7 +42,6 @@
 
     .calculator-button-op{
       @apply calculator-button bg-slate-300 p-8 font-normal
-
     }
 
     .calculator-button-number{

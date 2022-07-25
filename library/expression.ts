@@ -47,4 +47,29 @@ const evalExpression = (e: Expression): number => {
   return 0;
 };
 
-export { evalExpression };
+function reRollExpression(e: Expression): Expression {
+  if (e === null || e.tag === "number") {
+    /* Terminate recursion */
+  } else if (e.tag === "roll") {
+    const roll = Math.floor(Math.random() * e.sides + 1);
+    return { tag: "roll", sides: e.sides, n: roll };
+  } else if (e.tag === "math") {
+    /* Handle recursing through Expression data structure */
+    return e;
+  }
+
+  return e;
+}
+
+function expressionToString(e: Expression): string {
+  if (e === null) {
+    return "Empty";
+  } else if (e.tag === "number") {
+    return String(e.n);
+  } else if (e.tag === "roll") {
+    return `${Array.isArray(e.n) ? e.n.length : 1}d${e.sides}`;
+  }
+  return "Unsure";
+}
+
+export { evalExpression, reRollExpression, expressionToString };
