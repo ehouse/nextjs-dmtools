@@ -8,11 +8,15 @@
     }
 
     .die {
-      @apply flex justify-around items-center rounded-full bg-sky-600 active:bg-sky-800 p-2 shadow-sm active:shadow-none shadow-gray-400 transition-all ease-linear
+      @apply flex justify-around items-center 
+      rounded-full 
+      bg-gradient-to-tr from-sky-700 to-sky-500 active:from-sky-800 active:to-sky-800 
+      p-2 shadow-sm active:shadow-none shadow-gray-400 
+      transition-all ease-linear
     }
 
     .sidebar-icon {
-      @apply relative flex items-center justify-center mx-auto rounded-full bg-blue-300 p-2 shadow-md shadow-sky-800 transition-all duration-100 ease-linear hover:cursor-pointer  active:bg-blue-300/80 active:shadow-none
+      @apply relative flex items-center justify-center mx-auto rounded-full bg-blue-300 p-2 shadow-md shadow-sky-800 transition-all duration-100 ease-linear hover:cursor-pointer active:bg-blue-300/80 active:shadow-none
     }
 
     .sidebar-tip {
@@ -20,19 +24,19 @@
     }
 
     .calculator-button{
-      @apply p-10  border border-gray-500 text-xl active:bg-slate-400 active:shadow-inner transition-all duration-100 ease-linear
+      @apply border border-gray-500 text-3xl active:bg-slate-400 active:shadow-inner transition-all duration-100 ease-linear
     }
 
     .calculator-button-op{
-      @apply calculator-button bg-slate-300 text-3xl p-8 font-normal
+      @apply calculator-button bg-slate-300 p-8 font-normal
 
     }
 
     .calculator-button-number{
-      @apply calculator-button bg-slate-100 font-semibold
+      @apply calculator-button bg-slate-100 font-semibold p-8
     }
 
     .calculator-button-cell{
-      @apply die text-slate-100 text-4xl rounded-2xl p-7
+      @apply die text-slate-100 text-4xl rounded-2xl p-7 bg-gradient-to-tr from-sky-700 to-sky-600
     }
   }

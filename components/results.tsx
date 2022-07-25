@@ -2,6 +2,33 @@ import React from "react";
 
 import { evalExpression } from "../library/expression";
 
+function WaitingInput() {
+  return <span className="animate-pulse">_</span>;
+}
+
+function DieRoll(props: { roll: RollExpression }) {
+  const die = (
+    <span className="text-xl text-slate-500">{`d${props.roll.sides}(`}</span>
+  );
+  const result = (
+    <span
+      className={`px-1 
+      ${props.roll.sides == 20 && props.roll.n == 20 ? "text-green-700" : null}
+      ${props.roll.sides == 20 && props.roll.n == 1 ? "text-red-700" : null}
+      `}
+    >
+      {props.roll.n}
+    </span>
+  );
+  return (
+    <span>
+      {die}
+      {result}
+      <span className="text-xl text-slate-500">)</span>
+    </span>
+  );
+}
+
 /**
  * Run through an expression and generate an array of ReactElements to be displayed
  * @param expression Expression to be parsed
@@ -13,13 +40,13 @@ function GenerateElements(expression: Expression): React.ReactElement[] {
 
   if (expression === null) {
     // Terminate recursion if nullish case
-    prime.push(<span>_</span>);
+    prime.push(<WaitingInput />);
   } else if (expression.tag === "number") {
     // Terminate recursion if leaf node with number
     prime.push(<span>{expression.n}</span>);
     // Terminate recursion if leaf node is a die roll
   } else if (expression.tag === "roll") {
-    prime.push(<span>{`d${expression.sides}(${expression.n})`}</span>);
+    prime.push(<DieRoll roll={expression} />);
   } else if (expression.tag === "math") {
     // If a math expression, generate the left/right node via recursion and return combined array
     const left = GenerateElements(expression.left);
@@ -38,10 +65,10 @@ function Results(props: { expression: Expression }) {
   const expressionTotal = evalExpression(props.expression);
 
   return (
-    <div className="flex flex-col pt-8 text-xl">
+    <div className="mt-10 flex flex-col rounded-sm border border-solid border-slate-300 bg-slate-50 p-3 text-2xl">
       <div>{renderedResults}</div>
       <div className="pt-2">
-        <span className="pr-2 font-light text-slate-500">Result:</span>
+        <span className="pr-2 text-xl text-slate-500">Result:</span>
         {expressionTotal}
       </div>
     </div>

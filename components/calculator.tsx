@@ -84,10 +84,10 @@ function Calculator(props: Props) {
         9
       </button>
       <button
-        onClick={() => dispatchOperation("+")}
         className="calculator-button-op rounded-tr-md"
+        onClick={() => dispatchOperation("*")}
       >
-        +
+        *
       </button>
       <button
         value={4}
@@ -112,9 +112,9 @@ function Calculator(props: Props) {
       </button>
       <button
         className="calculator-button-op"
-        onClick={() => dispatchOperation("-")}
+        onClick={() => dispatchOperation("/")}
       >
-        -
+        /
       </button>
       <button
         value={1}
@@ -137,11 +137,12 @@ function Calculator(props: Props) {
       >
         3
       </button>
+
       <button
         className="calculator-button-op"
-        onClick={() => dispatchOperation("/")}
+        onClick={() => dispatchOperation("-")}
       >
-        /
+        -
       </button>
       <button
         value={"-"}
@@ -160,11 +161,12 @@ function Calculator(props: Props) {
       <button className="calculator-button-op">
         <FaBackspace />
       </button>
+
       <button
+        onClick={() => dispatchOperation("+")}
         className="calculator-button-op rounded-br-md"
-        onClick={() => dispatchOperation("*")}
       >
-        *
+        +
       </button>
     </div>
   );

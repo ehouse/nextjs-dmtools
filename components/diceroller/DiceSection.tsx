@@ -9,13 +9,23 @@ function DiceSection(props: {
     const roll = Math.floor(Math.random() * face + 1);
 
     if (props.expression === null) {
-      /* Handles when nothing is provided and a die is rolled */
+      /* Nothing is provided and a die is rolled */
       props.setExpression({ tag: "roll", sides: face, n: roll });
     } else if (props.expression.tag === "number") {
-      /* Handles when a number is provided before a die roll ex. 6d20 */
+      /* A number is provided before a die roll ex. 6d20 */
     } else if (props.expression.tag === "roll") {
-      /* Handles when only a roll is provided, and another die is rolled */
+      /* Only a roll is provided, and another die is rolled */
       props.setExpression({ tag: "roll", sides: face, n: roll });
+    } else if (props.expression.tag === "math") {
+      /* Left leaf node is an operation */
+      if (props.expression.right === null) {
+        // Check if the right leaf node is null, set to a roll
+        let newRoll: RollExpression = { tag: "roll", sides: face, n: roll };
+        let newExpression = { ...props.expression, right: newRoll };
+        props.setExpression(newExpression);
+      } else if (props.expression.right.tag === "number") {
+        /* A number is provided before a die roll ex. 6d20 */
+      }
     }
   };
 
