@@ -3,7 +3,7 @@ import React from "react";
 import { evalExpression } from "../../library/expression";
 
 function WaitingInput() {
-  return <span className="animate-pulse">_</span>;
+  return <span className="animate-pulse px-1">_</span>;
 }
 
 function DieRoll(props: { roll: RollExpression }) {
@@ -40,10 +40,9 @@ function GenerateElements(expression: Expression): React.ReactElement[] {
 
   if (expression === null) {
     // Terminate recursion if nullish case
-    prime.push(<WaitingInput />);
   } else if (expression.tag === "number") {
     // Terminate recursion if leaf node with number
-    prime.push(<span>{expression.n}</span>);
+    prime.push(<span className="">{expression.n}</span>);
     // Terminate recursion if leaf node is a die roll
   } else if (expression.tag === "roll") {
     prime.push(<DieRoll roll={expression} />);
@@ -66,8 +65,11 @@ function Results(props: { expression: Expression }) {
 
   return (
     <div className="mt-10 flex flex-col rounded-sm border border-solid border-slate-300 bg-slate-50 p-3 text-2xl">
-      <div>{renderedResults}</div>
-      <div className="pt-2">
+      <div>
+        {renderedResults}
+        <WaitingInput />
+      </div>
+      <div className="pt-3">
         <span className="pr-2 text-xl text-slate-500">Result:</span>
         {expressionTotal}
       </div>
