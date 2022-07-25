@@ -1,4 +1,4 @@
-import Die from "../die";
+import Die from "./die";
 
 function DiceSection(props: {
   setExpression: (arg0: Expression) => void;

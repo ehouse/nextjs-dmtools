@@ -1,6 +1,6 @@
 import React from "react";
 
-import { evalExpression } from "../library/expression";
+import { evalExpression } from "../../library/expression";
 
 function WaitingInput() {
   return <span className="animate-pulse">_</span>;

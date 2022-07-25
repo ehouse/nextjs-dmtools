@@ -12,6 +12,42 @@ function Calculator(props: Props) {
     props.clearExpression();
   };
 
+  const dispatchBackspace = () => {
+    if (props.expression === null) {
+      /* Do nothing */
+    } else if (props.expression.tag === "number") {
+      const slice = Number(String(props.expression.n).slice(0, -1));
+      if (slice === 0) {
+        props.setExpression(null);
+      } else {
+        props.setExpression({ tag: "number", n: slice });
+      }
+    } else if (props.expression.tag === "roll") {
+      props.setExpression(null);
+    } else if (props.expression.tag === "math") {
+      if (props.expression.right === null) {
+        /* Remove top arithmetic operation */
+        const slice = props.expression.left;
+        props.setExpression(slice);
+      } else if (props.expression.right.tag === "number") {
+        /* Remove right most digit in the right leaf node */
+        const slice = Number(String(props.expression.right.n).slice(0, -1));
+        let newNumber: NumberExpression = { tag: "number", n: slice };
+        let newExpression: Expression;
+
+        if (slice === 0) {
+          newExpression = { ...props.expression, right: null };
+        } else {
+          newExpression = { ...props.expression, right: newNumber };
+        }
+        props.setExpression(newExpression);
+      } else if (props.expression.right.tag === "roll") {
+        /* Remove the roll on the right */
+        props.setExpression({ ...props.expression, right: null });
+      }
+    }
+  };
+
   const dispatchNumber = (digit: number) => {
     if (props.expression === null) {
       /* If completely unset, set to a single number */
@@ -158,7 +194,7 @@ function Calculator(props: Props) {
       >
         0
       </button>
-      <button className="calculator-button-op">
+      <button onClick={dispatchBackspace} className="calculator-button-op">
         <FaBackspace />
       </button>
 
