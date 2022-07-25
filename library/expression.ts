@@ -37,6 +37,8 @@ const evalExpression = (e: Expression): number => {
     }
   } else if (e.tag === "number") {
     return e.n;
+  } else if (e.tag === "roll") {
+    return e.n;
   }
   return 0;
 };

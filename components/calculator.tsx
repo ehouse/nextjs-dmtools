@@ -14,15 +14,18 @@ function Calculator(props: Props) {
 
   const dispatchNumber = (digit: number) => {
     if (props.expression === null) {
-      // If completely unset, set to a single number
+      /* If completely unset, set to a single number */
       props.setExpression({ tag: "number", n: digit });
     } else if (props.expression.tag === "number") {
-      // Add a digit to a single number expression
+      /* Add a digit to a single number expression */
       let newExpression: NumberExpression = {
         tag: "number",
         n: props.expression.n * 10 + digit,
       };
       props.setExpression(newExpression);
+    } else if (props.expression.tag === "roll") {
+      /* Handle clicking a number after entering a roll */
+      props.setExpression({ tag: "number", n: digit });
     } else if (props.expression.tag === "math") {
       // If a math expression, append to the right leaf node
       if (props.expression.right === null) {
@@ -44,6 +47,7 @@ function Calculator(props: Props) {
   const dispatchOperation = (operation: Operation) => {
     if (
       props.expression?.tag === "number" ||
+      props.expression?.tag === "roll" ||
       (props.expression?.tag === "math" && props.expression.right !== null)
     ) {
       let newExpression: MathExpression = {

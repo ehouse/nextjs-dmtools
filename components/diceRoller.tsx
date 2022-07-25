@@ -17,7 +17,7 @@ function DiceRoller() {
       <h1 className="py-8 text-3xl font-bold">Prophecy DM Tool</h1>
       <div className="flex flex-col gap-8">
         <div className="flex gap-6">
-          <DiceSection />
+          <DiceSection setExpression={setExpression} expression={expression} />
           <div>
             <div className="flex flex-row gap-6">
               <Calculator

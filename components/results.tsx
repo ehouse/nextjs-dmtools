@@ -19,11 +19,13 @@ function GenerateElements(expression: Expression): React.ReactElement[] {
     prime.push(<span>{expression.n}</span>);
     // Terminate recursion if leaf node is a die roll
   } else if (expression.tag === "roll") {
-    prime.push(<span>{expression.n}</span>);
+    prime.push(<span>{`d${expression.sides}(${expression.n})`}</span>);
   } else if (expression.tag === "math") {
     // If a math expression, generate the left/right node via recursion and return combined array
     const left = GenerateElements(expression.left);
-    const op = <span>{expression.op}</span>;
+    const op = (
+      <span className="px-2 font-light text-slate-500">{expression.op}</span>
+    );
     const right = GenerateElements(expression.right);
     prime = [...left, op, ...right];
   }
@@ -36,9 +38,12 @@ function Results(props: { expression: Expression }) {
   const expressionTotal = evalExpression(props.expression);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pt-8 text-xl">
       <div>{renderedResults}</div>
-      <div>Total: {expressionTotal}</div>
+      <div className="pt-2">
+        <span className="pr-2 font-light text-slate-500">Result:</span>
+        {expressionTotal}
+      </div>
     </div>
   );
 }
