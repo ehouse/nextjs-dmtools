@@ -4,7 +4,7 @@ function DiceSection(props: {
   setExpression: (arg0: Expression) => void;
   expression: Expression;
 }) {
-  const dieClick = (face: number) => {
+  const dispatchRoll = (face: number) => {
     // Calculate the die roll
     const roll = Math.floor(Math.random() * face + 1);
 
@@ -13,6 +13,10 @@ function DiceSection(props: {
       props.setExpression({ tag: "roll", sides: face, n: roll });
     } else if (props.expression.tag === "number") {
       /* A number is provided before a die roll ex. 6d20 */
+      const rolls = Array.from({ length: props.expression.n }, () =>
+        Math.floor(Math.random() * face + 1)
+      );
+      props.setExpression({ tag: "roll", sides: face, n: rolls });
     } else if (props.expression.tag === "roll") {
       /* Only a roll is provided, and another die is rolled */
       props.setExpression({ tag: "roll", sides: face, n: roll });
@@ -25,18 +29,24 @@ function DiceSection(props: {
         props.setExpression(newExpression);
       } else if (props.expression.right.tag === "number") {
         /* A number is provided before a die roll ex. 6d20 */
+        const rolls = Array.from({ length: props.expression.right.n }, () =>
+          Math.floor(Math.random() * face + 1)
+        );
+        let newRoll: RollExpression = { tag: "roll", sides: face, n: rolls };
+        let newExpression = { ...props.expression, right: newRoll };
+        props.setExpression(newExpression);
       }
     }
   };
 
   return (
     <div className="flex flex-col gap-2 ">
-      <Die onClick={dieClick} face={4} />
-      <Die onClick={dieClick} face={6} />
-      <Die onClick={dieClick} face={8} />
-      <Die onClick={dieClick} face={10} />
-      <Die onClick={dieClick} face={12} />
-      <Die onClick={dieClick} face={20} />
+      <Die onClick={dispatchRoll} face={4} />
+      <Die onClick={dispatchRoll} face={6} />
+      <Die onClick={dispatchRoll} face={8} />
+      <Die onClick={dispatchRoll} face={10} />
+      <Die onClick={dispatchRoll} face={12} />
+      <Die onClick={dispatchRoll} face={20} />
     </div>
   );
 }

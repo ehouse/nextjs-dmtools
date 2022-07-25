@@ -12,6 +12,9 @@ function Calculator(props: Props) {
     props.clearExpression();
   };
 
+  /**
+   * Handle when the backspace button is pressed
+   */
   const dispatchBackspace = () => {
     if (props.expression === null) {
       /* Do nothing */
@@ -48,6 +51,11 @@ function Calculator(props: Props) {
     }
   };
 
+  /**
+   * Handles when a new number is pressed
+   *
+   * @param digit The number pressed
+   */
   const dispatchNumber = (digit: number) => {
     if (props.expression === null) {
       /* If completely unset, set to a single number */
@@ -80,6 +88,11 @@ function Calculator(props: Props) {
     }
   };
 
+  /**
+   * Handles when an arithmetic operation needs to be dispatched to the expression
+   *
+   * @param operation Arithmetic operation pressed
+   */
   const dispatchOperation = (operation: Operation) => {
     if (
       props.expression?.tag === "number" ||

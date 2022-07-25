@@ -38,7 +38,11 @@ const evalExpression = (e: Expression): number => {
   } else if (e.tag === "number") {
     return e.n;
   } else if (e.tag === "roll") {
-    return e.n;
+    if (Array.isArray(e.n)) {
+      return e.n.reduce((a, b) => a + b);
+    } else {
+      return e.n;
+    }
   }
   return 0;
 };

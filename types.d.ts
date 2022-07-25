@@ -9,7 +9,7 @@ type MathExpression = {
 
 type RollExpression = {
   tag: "roll";
-  n: number;
+  n: number | number[];
   sides: number;
 };
 

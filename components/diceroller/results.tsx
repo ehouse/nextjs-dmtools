@@ -3,19 +3,22 @@ import React from "react";
 import { evalExpression } from "../../library/expression";
 
 function WaitingInput() {
-  return <span className="animate-pulse px-1">_</span>;
+  return <span className="animate-ping px-1 text-slate-500">_</span>;
 }
 
 function DieRoll(props: { roll: RollExpression }) {
   const die = (
-    <span className="text-xl text-slate-500">{`d${props.roll.sides}(`}</span>
+    <span className="text-xl text-slate-500">{`${
+      Array.isArray(props.roll.n) ? props.roll.n.length : ""
+    }d${props.roll.sides}(`}</span>
   );
-  const result = (
+  const result = Array.isArray(props.roll.n) ? (
+    <span className="px-1">{props.roll.n.reduce((a, b) => a + b)}</span>
+  ) : (
     <span
       className={`px-1 
       ${props.roll.sides == 20 && props.roll.n == 20 ? "text-green-700" : null}
-      ${props.roll.sides == 20 && props.roll.n == 1 ? "text-red-700" : null}
-      `}
+      ${props.roll.sides == 20 && props.roll.n == 1 ? "text-red-700" : null}`}
     >
       {props.roll.n}
     </span>
