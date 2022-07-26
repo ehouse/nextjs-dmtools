@@ -19,25 +19,31 @@
 
     /* Design of the face of the individual dice */
     .die-face {
-      @apply absolute text-center text-5xl font-semibold text-slate-50 group-active:text-slate-200 shadow-white drop-shadow-md
+      @apply absolute text-center text-5xl font-semibold 
+      text-slate-50 group-active:text-slate-200 shadow-white drop-shadow-md
     }
 
     /* The icon that represents a specific component tree */
     .sidebar-icon {
-      @apply relative flex items-center justify-center mx-auto rounded-full bg-blue-300 p-2 shadow-md shadow-sky-800 transition-all duration-100 ease-linear hover:cursor-pointer active:bg-blue-300/80 active:shadow-none
+      @apply relative flex items-center justify-center mx-auto rounded-full 
+      bg-blue-300 p-2 shadow-md shadow-sky-800 transition-all duration-100 ease-linear 
+      hover:cursor-pointer active:bg-blue-300/80 active:shadow-none
     }
 
     /* Pop-up tip naming the component tree */
     .sidebar-tip {
-      @apply absolute w-auto p-2 m-2 min-w-max left-[3.25rem] scale-0 rounded-md shadow-md text-white bg-gray-900 text-xs font-semibold transition-all origin-left
+      @apply absolute w-auto p-2 m-2 min-w-max left-[3.25rem] scale-0 rounded-md shadow-md 
+      text-white bg-gray-900 text-xs font-semibold transition-all origin-left
     }
 
     .cell-tip {
-      @apply absolute w-auto p-2 m-2 min-w-max left-[6rem] top-[1.5rem] scale-0 rounded-md shadow-md text-white bg-gray-900 text-xs font-semibold transition-all origin-left
+      @apply absolute w-auto p-2 m-2 min-w-max left-[6rem] top-[1.5rem] scale-0 rounded-md 
+      shadow-md text-white bg-gray-900 text-xs font-semibold transition-all origin-left
     }
 
     .calculator-button{
-      @apply border border-gray-500 text-3xl active:bg-slate-400 active:shadow-inner transition-all duration-100 ease-linear
+      @apply border border-gray-500 text-3xl active:bg-slate-400 active:shadow-inner 
+      transition-all duration-100 ease-linear
     }
 
     .calculator-button-op{

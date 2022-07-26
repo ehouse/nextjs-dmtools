@@ -13,22 +13,19 @@ function DiceRoller() {
   };
 
   return (
-    <div className="container mx-auto flex flex-col px-8">
-      <h1 className="py-8 text-3xl font-bold">Prophecy DM Tool</h1>
-      <div className="flex flex-col gap-8">
-        <div className="flex gap-8">
-          <DiceSection setExpression={setExpression} expression={expression} />
-          <div>
-            <div className="flex flex-row gap-6">
-              <Calculator
-                setExpression={setExpression}
-                clearExpression={clearExpression}
-                expression={expression}
-              />
-              <Memory expression={expression} setExpression={setExpression} />
-            </div>
-            <Results expression={expression} />
+    <div className="container mx-auto flex flex-col px-4 md:px-8 md:pt-12">
+      <div className="gap-8 md:flex">
+        <DiceSection setExpression={setExpression} expression={expression} />
+        <div>
+          <div className="flex flex-row gap-6">
+            <Calculator
+              setExpression={setExpression}
+              clearExpression={clearExpression}
+              expression={expression}
+            />
+            <Memory expression={expression} setExpression={setExpression} />
           </div>
+          <Results expression={expression} />
         </div>
       </div>
     </div>

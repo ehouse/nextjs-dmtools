@@ -13,10 +13,14 @@ function DiceSection(props: {
       props.setExpression({ tag: "roll", sides: face, n: roll });
     } else if (props.expression.tag === "number") {
       /* A number is provided before a die roll ex. 6d20 */
-      const rolls = Array.from({ length: props.expression.n }, () =>
-        Math.floor(Math.random() * face + 1)
-      );
-      props.setExpression({ tag: "roll", sides: face, n: rolls });
+      if (props.expression.n === 0) {
+        props.setExpression({ tag: "number", n: 0 });
+      } else {
+        const rolls = Array.from({ length: props.expression.n }, () =>
+          Math.floor(Math.random() * face + 1)
+        );
+        props.setExpression({ tag: "roll", sides: face, n: rolls });
+      }
     } else if (props.expression.tag === "roll") {
       /* Only a roll is provided, and another die is rolled */
       props.setExpression({ tag: "roll", sides: face, n: roll });
@@ -40,7 +44,7 @@ function DiceSection(props: {
   };
 
   return (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-wrap justify-center gap-1 py-2 md:flex-col md:gap-2 md:py-0">
       <Die onClick={dispatchRoll} face={4} />
       <Die onClick={dispatchRoll} face={6} />
       <Die onClick={dispatchRoll} face={8} />

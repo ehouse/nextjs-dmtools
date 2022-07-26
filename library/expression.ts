@@ -48,28 +48,47 @@ const evalExpression = (e: Expression): number => {
 };
 
 function reRollExpression(e: Expression): Expression {
-  if (e === null || e.tag === "number") {
+  let prime = e;
+
+  if (prime === null || prime.tag === "number") {
     /* Terminate recursion */
-  } else if (e.tag === "roll") {
-    const roll = Math.floor(Math.random() * e.sides + 1);
-    return { tag: "roll", sides: e.sides, n: roll };
-  } else if (e.tag === "math") {
-    /* Handle recursing through Expression data structure */
-    return e;
+  } else if (prime.tag === "roll") {
+    if (Array.isArray(prime.n)) {
+      const length = prime.n.length;
+      const face = prime.sides;
+      const rolls = Array.from({ length: length }, () =>
+        Math.floor(Math.random() * face + 1)
+      );
+      let newRoll: RollExpression = { tag: "roll", sides: face, n: rolls };
+      prime = newRoll;
+    } else {
+      const face = prime.sides;
+      const roll = Math.floor(Math.random() * face + 1);
+      let newRoll: RollExpression = { tag: "roll", sides: face, n: roll };
+      prime = newRoll;
+    }
+  } else if (prime.tag === "math") {
+    const left = reRollExpression(prime.left);
+    const right = reRollExpression(prime.right);
+    prime = { ...prime, left: left, right: right };
   }
 
-  return e;
+  return prime;
 }
 
 function expressionToString(e: Expression): string {
   if (e === null) {
-    return "Empty";
+    return "";
   } else if (e.tag === "number") {
     return String(e.n);
   } else if (e.tag === "roll") {
     return `${Array.isArray(e.n) ? e.n.length : 1}d${e.sides}`;
+  } else if (e.tag === "math") {
+    const left = expressionToString(e.left);
+    const right = expressionToString(e.right);
+    return `${left} ${e.op} ${right}`;
   }
-  return "Unsure";
+  return "";
 }
 
 export { evalExpression, reRollExpression, expressionToString };

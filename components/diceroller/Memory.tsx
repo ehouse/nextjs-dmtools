@@ -27,7 +27,7 @@ function Memory(props: {
   };
 
   return (
-    <div className="flex flex-col justify-between">
+    <div className="hidden flex-col justify-between md:flex">
       <div className="group relative">
         <button
           onClick={() => dispatchMemory(1)}
@@ -44,7 +44,7 @@ function Memory(props: {
           </button>
         )}
         <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[1] ?? null)}
+          {expressionToString(cell[1] ?? null) || "Empty"}
         </span>
       </div>
       <div className="group relative">
@@ -63,7 +63,7 @@ function Memory(props: {
           </button>
         )}
         <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[2] ?? null)}
+          {expressionToString(cell[2] ?? null) || "Empty"}
         </span>
       </div>
       <div className="group relative">
@@ -82,7 +82,7 @@ function Memory(props: {
           </button>
         )}
         <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[3] ?? null)}
+          {expressionToString(cell[3] ?? null) || "Empty"}
         </span>
       </div>
       <div className="group relative">
@@ -101,7 +101,7 @@ function Memory(props: {
           </button>
         )}
         <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[4] ?? null)}
+          {expressionToString(cell[4] ?? null) || "Empty"}
         </span>
       </div>
     </div>

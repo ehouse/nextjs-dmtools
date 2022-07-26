@@ -6,9 +6,9 @@ import DiceRoller from "../components/diceRoller";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex bg-zinc-100">
-      <nav className="flex w-20 flex-col items-center bg-sky-600 shadow-md shadow-slate-400">
-        <div className="sidebar-icon group mt-6">
+    <div className="flex flex-col bg-zinc-100 md:flex-row">
+      <nav className="flex w-auto flex-col items-center bg-sky-600 shadow-md md:w-20 ">
+        <div className="sidebar-icon group md:mt-6">
           <FaDiceD20 size="36px" color="rgb(30 58 138)" />
           <span className="sidebar-tip group-hover:scale-100">Dice Roller</span>
         </div>
