@@ -13,7 +13,7 @@ function DiceRoller() {
   };
 
   return (
-    <div className="container mx-auto flex flex-col px-4 md:px-8 md:pt-12">
+    <div className="mx-auto flex flex-col px-4 pt-2 md:px-8 md:pt-12">
       <div className="gap-8 md:flex">
         <DiceSection setExpression={setExpression} expression={expression} />
         <div>

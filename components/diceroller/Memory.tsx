@@ -3,6 +3,40 @@ import { FaRegCircle, FaRegDotCircle, FaTrash } from "react-icons/fa";
 
 import { reRollExpression, expressionToString } from "../../library/expression";
 
+function TrashCan(props: { onClick: () => void }) {
+  return (
+    <button
+      className="absolute right-1.5 top-1.5 p-0.5 text-slate-100 hover:text-slate-400"
+      onClick={props.onClick}
+    >
+      <FaTrash />
+    </button>
+  );
+}
+
+function MemoryButton(props: {
+  cell: Expression;
+  cellID: number;
+  dispatchMemory: (id: number, clear?: boolean) => void;
+}) {
+  return (
+    <div className="group relative">
+      <button
+        onClick={() => props.dispatchMemory(props.cellID)}
+        className="button rounded-2xl bg-gradient-to-tr from-sky-700 to-sky-600 p-7 text-4xl text-slate-100 "
+      >
+        {props.cell ? <FaRegDotCircle /> : <FaRegCircle />}
+      </button>
+      {props.cell && (
+        <TrashCan onClick={() => props.dispatchMemory(props.cellID, true)} />
+      )}
+      <span className="tip left-[6rem] top-[1.5rem]">
+        {expressionToString(props.cell ?? null) || "Empty"}
+      </span>
+    </div>
+  );
+}
+
 function Memory(props: {
   expression: Expression;
   setExpression: (e: Expression) => void;
@@ -28,82 +62,10 @@ function Memory(props: {
 
   return (
     <div className="hidden flex-col justify-between md:flex">
-      <div className="group relative">
-        <button
-          onClick={() => dispatchMemory(1)}
-          className="calculator-button-cell"
-        >
-          {cell[1] ? <FaRegDotCircle /> : <FaRegCircle />}
-        </button>
-        {cell[1] && (
-          <button
-            className="trashcan-hover absolute right-1.5 top-1.5 p-0.5"
-            onClick={() => dispatchMemory(1, true)}
-          >
-            <FaTrash />
-          </button>
-        )}
-        <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[1] ?? null) || "Empty"}
-        </span>
-      </div>
-      <div className="group relative">
-        <button
-          onClick={() => dispatchMemory(2)}
-          className="calculator-button-cell"
-        >
-          {cell[2] ? <FaRegDotCircle /> : <FaRegCircle />}
-        </button>
-        {cell[2] && (
-          <button
-            className="trashcan-hover absolute right-1.5 top-1.5 p-0.5"
-            onClick={() => dispatchMemory(2, true)}
-          >
-            <FaTrash />
-          </button>
-        )}
-        <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[2] ?? null) || "Empty"}
-        </span>
-      </div>
-      <div className="group relative">
-        <button
-          onClick={() => dispatchMemory(3)}
-          className="calculator-button-cell"
-        >
-          {cell[3] ? <FaRegDotCircle /> : <FaRegCircle />}
-        </button>
-        {cell[3] && (
-          <button
-            className="trashcan-hover absolute right-1.5 top-1.5 p-0.5"
-            onClick={() => dispatchMemory(3, true)}
-          >
-            <FaTrash />
-          </button>
-        )}
-        <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[3] ?? null) || "Empty"}
-        </span>
-      </div>
-      <div className="group relative">
-        <button
-          onClick={() => dispatchMemory(4)}
-          className="calculator-button-cell"
-        >
-          {cell[4] ? <FaRegDotCircle /> : <FaRegCircle />}
-        </button>
-        {cell[4] && (
-          <button
-            className="trashcan-hover absolute right-1.5 top-1.5 p-0.5"
-            onClick={() => dispatchMemory(4, true)}
-          >
-            <FaTrash />
-          </button>
-        )}
-        <span className="cell-tip group-hover:scale-100">
-          {expressionToString(cell[4] ?? null) || "Empty"}
-        </span>
-      </div>
+      <MemoryButton cell={cell[1]} cellID={1} dispatchMemory={dispatchMemory} />
+      <MemoryButton cell={cell[2]} cellID={2} dispatchMemory={dispatchMemory} />
+      <MemoryButton cell={cell[3]} cellID={3} dispatchMemory={dispatchMemory} />
+      <MemoryButton cell={cell[4]} cellID={4} dispatchMemory={dispatchMemory} />
     </div>
   );
 }

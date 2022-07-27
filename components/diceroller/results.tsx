@@ -67,7 +67,7 @@ function Results(props: { expression: Expression }) {
   const expressionTotal = evalExpression(props.expression);
 
   return (
-    <div className="mt-10 flex flex-col rounded-sm border border-solid border-slate-300 bg-slate-50 p-3 text-2xl">
+    <div className="mt-4 flex flex-col rounded-sm border border-solid border-slate-300 bg-slate-50 p-3 text-2xl md:mt-10">
       <div>
         {renderedResults}
         <WaitingInput />

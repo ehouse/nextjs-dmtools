@@ -10,11 +10,13 @@ function Die(props: Props) {
     <div className="relative">
       <button
         type="button"
-        className="die group active:shadow-none"
+        className="button group flex items-center justify-around rounded-full bg-sky-600 p-2 text-sky-900"
         onClick={() => props.onClick(props.face)}
       >
-        <FaDiceD20 size="68" className="fill-rose-900/50" />
-        <span className="die-face">{props.face}</span>
+        <FaDiceD20 size="68" />
+        <span className="absolute text-center text-5xl font-semibold text-slate-50 shadow-white drop-shadow-md group-active:text-slate-200">
+          {props.face}
+        </span>
       </button>
     </div>
   );
