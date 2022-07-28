@@ -7,25 +7,45 @@ function WaitingInput() {
 }
 
 function DieRoll(props: { roll: RollExpression }) {
-  const die = (
-    <span className="text-xl text-slate-500">{`${
-      Array.isArray(props.roll.n) ? props.roll.n.length : ""
-    }d${props.roll.sides}(`}</span>
-  );
-  const result = Array.isArray(props.roll.n) ? (
-    <span className="px-1">{props.roll.n.reduce((a, b) => a + b)}</span>
-  ) : (
-    <span
-      className={`px-1 
-      ${props.roll.sides == 20 && props.roll.n == 20 ? "text-green-700" : null}
-      ${props.roll.sides == 20 && props.roll.n == 1 ? "text-red-700" : null}`}
-    >
-      {props.roll.n}
-    </span>
-  );
+  let diePrefix: JSX.Element = <span />;
+  let result: React.ReactNode = <span />;
+
+  if (Array.isArray(props.roll.n)) {
+    if (props.roll.n.length === 2 && props.roll.n[0] > 999) {
+      result = props.roll.n[0];
+      diePrefix = (
+        <span className="text-xl text-slate-500">
+          {`${props.roll.n[1]}d${props.roll.sides}(`}
+        </span>
+      );
+    } else {
+      result = (
+        <span className="px-1">{props.roll.n.reduce((a, b) => a + b)}</span>
+      );
+      diePrefix = (
+        <span className="text-xl text-slate-500">
+          {`${props.roll.n.length}d${props.roll.sides}(`}
+        </span>
+      );
+    }
+  } else {
+    result = (
+      <span
+        className={`px-1 
+    ${props.roll.sides == 20 && props.roll.n == 20 ? "text-green-700" : null}
+    ${props.roll.sides == 20 && props.roll.n == 1 ? "text-red-700" : null}`}
+      >
+        {props.roll.n}
+      </span>
+    );
+    diePrefix = (
+      <span className="text-xl text-slate-500">{`d${props.roll.sides}(`}</span>
+    );
+  }
+
   return (
     <span>
-      {die}
+      {diePrefix}
       {result}
       <span className="text-xl text-slate-500">)</span>
     </span>
@@ -67,7 +87,7 @@ function Results(props: { expression: Expression }) {
   const expressionTotal = evalExpression(props.expression);
 
   return (
-    <div className="mt-4 flex flex-col rounded-sm border border-solid border-slate-300 bg-slate-50 p-3 text-2xl md:mt-10">
+    <div className="mt-5 flex flex-col rounded-sm border border-solid border-slate-300 bg-slate-50 p-3 text-2xl md:mt-10">
       <div>
         {renderedResults}
         <WaitingInput />

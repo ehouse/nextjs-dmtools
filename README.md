@@ -7,8 +7,6 @@ Written in Next.JS using a fully custom design implemented in tailwindcss.
 First, run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
 ```
 

@@ -14,7 +14,18 @@ function DiceSection(props: {
     } else if (props.expression.tag === "number") {
       /* A number is provided before a die roll ex. 6d20 */
       if (props.expression.n === 0) {
+        /* Handle set number if it's smaller then 0 */
         props.setExpression({ tag: "number", n: 0 });
+      } else if (props.expression.n > 999) {
+        /* Handle set numbers larger then 999 */
+        const largeRoll =
+          Math.floor(Math.random() * (face * props.expression.n)) +
+          props.expression.n;
+        props.setExpression({
+          tag: "roll",
+          sides: face,
+          n: [largeRoll, props.expression.n],
+        });
       } else {
         const rolls = Array.from({ length: props.expression.n }, () =>
           Math.floor(Math.random() * face + 1)
