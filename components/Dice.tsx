@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import Calculator from "./diceroller/Calculator";
-import Results from "./diceroller/results";
+import Results from "./diceroller/Results";
 import DiceSection from "./diceroller/DiceSection";
 import Memory from "./diceroller/Memory";
 
