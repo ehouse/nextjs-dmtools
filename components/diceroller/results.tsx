@@ -57,7 +57,10 @@ function DieRoll(props: { roll: RollExpression }) {
  * @param expression Expression to be parsed
  * @returns React.ReactElement[] to be displayed via Results
  */
-function GenerateElements(expression: Expression): React.ReactElement[] {
+function GenerateElements(
+  expression: Expression,
+  index: number
+): React.ReactElement[] {
   // Array of components passed in, will append new elements and eventually return
   let prime: React.ReactElement[] = [];
 
@@ -65,17 +68,19 @@ function GenerateElements(expression: Expression): React.ReactElement[] {
     // Terminate recursion if nullish case
   } else if (expression.tag === "number") {
     // Terminate recursion if leaf node with number
-    prime.push(<span className="">{expression.n}</span>);
+    prime.push(<span key={index}>{expression.n}</span>);
     // Terminate recursion if leaf node is a die roll
   } else if (expression.tag === "roll") {
-    prime.push(<DieRoll roll={expression} />);
+    prime.push(<DieRoll key={index} roll={expression} />);
   } else if (expression.tag === "math") {
     // If a math expression, generate the left/right node via recursion and return combined array
-    const left = GenerateElements(expression.left);
+    const left = GenerateElements(expression.left, index * 2);
     const op = (
-      <span className="px-2 font-light text-slate-500">{expression.op}</span>
+      <span key={index} className="px-2 font-light text-slate-500">
+        {expression.op}
+      </span>
     );
-    const right = GenerateElements(expression.right);
+    const right = GenerateElements(expression.right, (index + 1) * 2);
     prime = [...left, op, ...right];
   }
 
@@ -83,11 +88,11 @@ function GenerateElements(expression: Expression): React.ReactElement[] {
 }
 
 function Results(props: { expression: Expression }) {
-  const renderedResults = GenerateElements(props.expression);
+  const renderedResults = GenerateElements(props.expression, 1);
   const expressionTotal = evalExpression(props.expression);
 
   return (
-    <div className="mt-5 flex flex-col rounded-sm border border-solid border-slate-300 bg-slate-50 p-3 text-2xl md:mt-10">
+    <div className="text-area mt-5 flex flex-col rounded-sm p-3 text-2xl md:mt-10">
       <div>
         {renderedResults}
         <WaitingInput />

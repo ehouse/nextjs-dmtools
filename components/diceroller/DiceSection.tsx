@@ -1,4 +1,4 @@
-import Die from "./die";
+import Die from "./Die";
 
 function DiceSection(props: {
   setExpression: (arg0: Expression) => void;
@@ -44,18 +44,40 @@ function DiceSection(props: {
         props.setExpression(newExpression);
       } else if (props.expression.right.tag === "number") {
         /* A number is provided before a die roll ex. 6d20 */
-        const rolls = Array.from({ length: props.expression.right.n }, () =>
-          Math.floor(Math.random() * face + 1)
-        );
-        let newRoll: RollExpression = { tag: "roll", sides: face, n: rolls };
-        let newExpression = { ...props.expression, right: newRoll };
-        props.setExpression(newExpression);
+        if (props.expression.right.n === 0) {
+          /* Handle set number if it's smaller then 0 */
+          props.setExpression({
+            ...props.expression,
+            right: { tag: "number", n: 0 },
+          });
+        } else if (props.expression.right.n > 999) {
+          /* Handle set numbers larger then 999 */
+          const largeRoll =
+            Math.floor(Math.random() * (face * props.expression.right.n)) +
+            props.expression.right.n;
+          props.setExpression({
+            ...props.expression,
+            right: {
+              tag: "roll",
+              sides: face,
+              n: [largeRoll, props.expression.right.n],
+            },
+          });
+        } else {
+          /* A number is provided before a die roll ex. 6d20 */
+          const rolls = Array.from({ length: props.expression.right.n }, () =>
+            Math.floor(Math.random() * face + 1)
+          );
+          let newRoll: RollExpression = { tag: "roll", sides: face, n: rolls };
+          let newExpression = { ...props.expression, right: newRoll };
+          props.setExpression(newExpression);
+        }
       }
     }
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-1 py-2 md:flex-col md:gap-2 md:py-0">
+    <div className="flex flex-wrap justify-center gap-1 py-2 md:flex-col md:gap-2 md:py-0 lg:justify-start">
       <Die onClick={dispatchRoll} face={4} />
       <Die onClick={dispatchRoll} face={6} />
       <Die onClick={dispatchRoll} face={8} />

@@ -13,6 +13,10 @@
       @apply absolute z-10 m-2 w-auto min-w-max origin-left scale-0 rounded-md bg-gray-900 p-2 text-xs font-semibold text-white shadow-md transition-all group-hover:scale-100
     }
 
+    .text-area {
+      @apply border border-solid border-slate-300 bg-slate-100
+    }
+
     .calculator-button{
       @apply border border-gray-500 text-3xl active:bg-slate-400 active:shadow-inner 
       transition-all duration-100 ease-linear
